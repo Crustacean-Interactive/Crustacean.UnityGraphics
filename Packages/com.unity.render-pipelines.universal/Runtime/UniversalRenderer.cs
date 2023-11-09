@@ -568,6 +568,9 @@ namespace UnityEngine.Rendering.Universal
                 createColorTexture |= createDepthTexture;
             }
 #endif
+
+            //Debug.Log($"[Strayed.URP]: CCT = {createColorTexture}");
+
             bool useDepthPriming = (m_DepthPrimingRecommended && m_DepthPrimingMode == DepthPrimingMode.Auto) || (m_DepthPrimingMode == DepthPrimingMode.Forced);
             useDepthPriming &= requiresDepthPrepass && (createDepthTexture || createColorTexture) && m_RenderingMode == RenderingMode.Forward && (cameraData.renderType == CameraRenderType.Base || cameraData.clearDepth);
 
@@ -880,6 +883,8 @@ namespace UnityEngine.Rendering.Universal
                 // We need final blit to resolve to screen
                 if (!cameraTargetResolved)
                 {
+                    Debug.Log($"[Strayed.URP]: {m_ActiveCameraColorAttachment.id} vs {RenderTargetHandle.GetCameraTarget(cameraData.xr).id}");
+                    Debug.Log("[Strayed.URP]: Camera Target Not Resolved!");
                     m_FinalBlitPass.Setup(cameraTargetDescriptor, sourceForFinalPass);
                     EnqueuePass(m_FinalBlitPass);
                 }
@@ -1160,6 +1165,9 @@ namespace UnityEngine.Rendering.Universal
         /// <returns>Return true if pipeline needs to render to a intermediate render texture.</returns>
         bool RequiresIntermediateColorTexture(ref CameraData cameraData)
         {
+            // TODO: zCubed, this is hacky as fuck!!!
+            return false;
+
             // When rendering a camera stack we always create an intermediate render texture to composite camera results.
             // We create it upon rendering the Base camera.
             if (cameraData.renderType == CameraRenderType.Base && !cameraData.resolveFinalTarget)
