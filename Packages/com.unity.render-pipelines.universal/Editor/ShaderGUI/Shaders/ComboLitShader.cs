@@ -61,6 +61,11 @@ namespace UnityEditor.Rendering.Universal.ShaderGUI
                 materialEditor.TexturePropertySingleLine(Styles.bakedBaseMap, bakedBaseMapProp, baseColorProp);
             }
 
+            if ((SpecularSource)simpleLitProperties.specHighlights.floatValue == SpecularSource.NoSpecular)
+            {
+                simpleLitProperties.specHighlights.floatValue = (float)SpecularSource.SpecularTextureAndColor;
+            }
+
             SimpleLitGUI.Inputs(simpleLitProperties, materialEditor, material);
         }
 

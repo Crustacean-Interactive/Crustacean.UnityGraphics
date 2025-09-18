@@ -125,6 +125,7 @@ Shader "Universal Render Pipeline/Lit (SMA | Baked Combo)"
 
             #pragma shader_feature_local_fragment _SMA_COMBINED_MAP
             #pragma shader_feature_local_fragment _SMA_RED_IS_ROUGHNESS
+            #pragma shader_feature_local_fragment _SPECGLOSSMAP
 
             #else
 
